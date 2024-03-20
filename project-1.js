@@ -14,17 +14,25 @@ frameRate1.addEventListener("change", e => {
     frameRate(parseInt(frameRate1.value))
 })
 
-
-let surMinBtnIn = document.querySelector(".sur-min-btn-in")
-let surMinIn = document.querySelector("#survival-min")
-surMinBtnIn.addEventListener("click", e => {
-    surMinIn.innerHTML ++
+let surMaxBtnIn = document.querySelector(".sur-max-btn-in")
+let surMax = document.querySelector("#survival-max")
+surMaxBtnIn.addEventListener("click", e => {
+    if (surMax.innerHTML < 8) {
+    surMax.innerHTML ++
+    a3 ++
+    console.log(a3)
+}
 })
 
-let surMinBtnDe = document.querySelector(".sur-min-btn-de")
-surMinBtnDe.addEventListener("click", e => {
-    surMinIn.innerHTML --
+let surMaxBtnDe = document.querySelector(".sur-max-btn-de")
+surMaxBtnDe.addEventListener("click", e => {
+    if (surMax.innerHTML > 0) {
+    surMax.innerHTML --
+    a3 --
+    console.log(a3)
+}
 })
+
 
 let currentBoard;
 let nextBoard;

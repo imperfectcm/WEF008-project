@@ -4,6 +4,11 @@
     width: 500px;
 }
 
+.input-column > .row {
+    display: flex;
+    flex-wrap: nowrap !important;
+}
+
 .slider-setting {
     display: flex;
     flex-wrap: wrap;
@@ -35,8 +40,13 @@
 
 .row > .survival {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    padding: 0;
+}
+
+.row > .col-3 {
+    width: 100px;
 }
 
 .changeNum {
@@ -44,7 +54,18 @@
     flex-wrap: nowrap;
     align-items: center;
 }
-#survival-min {
+
+#survival-max {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    color: rgb(110, 110, 110);
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 10px 0 0 10px;
+}
+
+#neighbors-max {
     display: flex;
     justify-content: center;
     align-items: center;
