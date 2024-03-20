@@ -1,9 +1,30 @@
 const unitLength = 20;
-let boxColor = '#505E71';
-let emptyBoxColor = '#ADBACC';
+let darkerColor = '#505E71';
+let LighterColor = '#ADBACC';
 let strokeColor = 255;
 let columns; /* To be determined by window width */
 let rows; /* To be determined by window height */
+let a2 = 2
+let a3 = 3
+let b3 = 3
+
+
+let frameRate1 = document.querySelector(".frameRate1")
+frameRate1.addEventListener("change", e => {
+    frameRate(parseInt(frameRate1.value))
+})
+
+
+let surMinBtnIn = document.querySelector(".sur-min-btn-in")
+let surMinIn = document.querySelector("#survival-min")
+surMinBtnIn.addEventListener("click", e => {
+    surMinIn.innerHTML ++
+})
+
+let surMinBtnDe = document.querySelector(".sur-min-btn-de")
+surMinBtnDe.addEventListener("click", e => {
+    surMinIn.innerHTML --
+})
 
 let currentBoard;
 let nextBoard;
@@ -11,8 +32,10 @@ let nextBoard;
 
 function setup() {
     /* Set the canvas to be under the element #canvas*/
-    const canvas = createCanvas(windowWidth - 50, windowHeight - 50);
+    let canvas = createCanvas(windowWidth -30, windowHeight - 100);
+    canvas.style('display', 'block');
     canvas.parent(document.querySelector("#canvas"));
+    // canvas.position(10, 0, relative)
 
     /*Calculate the number of columns and rows */
     columns = floor(width / unitLength);
@@ -53,17 +76,18 @@ function init() {
 
 
 function draw() {
-    background(255);
+    background(strokeColor);
     generate();
+
+
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
             if (currentBoard[i][j] == 1) {
-                fill(boxColor);
+                fill(darkerColor);
             } else {
-                fill(emptyBoxColor);
+                fill(LighterColor);
             }
             stroke(strokeColor);
-            strokeWeight(0.4);
             rect(i * unitLength, j * unitLength, unitLength, unitLength);
         }
     }
@@ -89,13 +113,13 @@ function generate() {
             }
 
             // Rules of Life
-            if (currentBoard[x][y] == 1 && neighbors < 2) {
+            if (currentBoard[x][y] == 1 && neighbors < a2) {
                 // Die of Loneliness
                 nextBoard[x][y] = 0;
-            } else if (currentBoard[x][y] == 1 && neighbors > 3) {
+            } else if (currentBoard[x][y] == 1 && neighbors > a3) {
                 // Die of Overpopulation
                 nextBoard[x][y] = 0;
-            } else if (currentBoard[x][y] == 0 && neighbors == 3) {
+            } else if (currentBoard[x][y] == 0 && neighbors == b3) {
                 // New life due to Reproduction
                 nextBoard[x][y] = 1;
             } else {
@@ -123,7 +147,7 @@ function mouseDragged() {
     const y = Math.floor(mouseY / unitLength);
     console.log(mouseX, mouseY, x, y)
     currentBoard[x][y] = 1;
-    fill(boxColor);
+    fill(darkerColor);
     stroke(strokeColor);
     rect(x * unitLength, y * unitLength, unitLength, unitLength);
 }
@@ -138,6 +162,3 @@ function mouseReleased() {
     loop()
 }
 
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-}
