@@ -44,6 +44,29 @@ OOOO`
 
 let spaceShip = spaceShipString.split("\n")
 
+let pulsarString =
+`..OOO...OOO
+
+O....O.O....O
+O....O.O....O
+O....O.O....O
+..OOO...OOO
+
+..OOO...OOO
+O....O.O....O
+O....O.O....O
+O....O.O....O
+
+..OOO...OOO`
+
+let pulsar = pulsarString.split("\n")
+
+let pentaString =
+`..O....O
+OO.OOOO.OO
+..O....O`
+
+let penta = pentaString.split("\n")
 
 
 let setRandomColor = () => {
@@ -101,6 +124,13 @@ neiMaxBtnDe.addEventListener("click", e => {
 
 let reset = document.querySelector("#reset")
 reset.addEventListener("click", e => {
+    surMax.innerHTML = 3;
+    a3 = 3;
+    neiMax.innerHTML = 3;
+    b3 = 3;
+    frameRate1.value = 30;
+    game = true;
+    play2();
     setup()
 })
 
@@ -266,7 +296,7 @@ function mouseDragged() {
 
     if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
         return;
-    } else if (pattern == 0) {
+    } else if (pattern == 0 || pattern == 6) {
         console.log(pattern)
         console.log(mouseX, mouseY, x, y)
         currentBoard[x][y] = 1;
@@ -310,6 +340,30 @@ function mouseDragged() {
                 }
             }
         }
+    } else if (pattern == 4) {
+        console.log(pattern)
+        for (let i in pulsar) {
+            for (let j in pulsar[i]) {
+                if (pulsar[i][j] == "O") {
+                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
+                    fill(darkerColor);
+                    stroke(strokeColor);
+                    rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
+                }
+            }
+        }
+    } else if (pattern == 5) {
+        console.log(pattern)
+        for (let i in penta) {
+            for (let j in penta[i]) {
+                if (penta[i][j] == "O") {
+                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
+                    fill(darkerColor);
+                    stroke(strokeColor);
+                    rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
+                }
+            }
+        }
     }
 
 }
@@ -339,7 +393,9 @@ function getRandomCode() {
     "#" + Math.floor(Math.random() * 16777215).toString(16)
 }
 
-
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
 
 
 
