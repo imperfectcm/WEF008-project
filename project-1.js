@@ -1,5 +1,6 @@
 const unitLength = 20;
 let darkerColor = '#505E71';
+let moreDarkerColor = '#2E3B4E'
 let LighterColor = '#ADBACC';
 let strokeColor = 255;
 let columns; /* To be determined by window width */
@@ -7,6 +8,10 @@ let rows; /* To be determined by window height */
 let a2 = 2
 let a3 = 3
 let b3 = 3
+let randomBirth = false
+
+
+
 
 
 let frameRate1 = document.querySelector(".frameRate1")
@@ -18,19 +23,57 @@ let surMaxBtnIn = document.querySelector(".sur-max-btn-in")
 let surMax = document.querySelector("#survival-max")
 surMaxBtnIn.addEventListener("click", e => {
     if (surMax.innerHTML < 8) {
-    surMax.innerHTML ++
-    a3 ++
-    console.log(a3)
-}
+        surMax.innerHTML++
+        a3++
+    }
 })
 
 let surMaxBtnDe = document.querySelector(".sur-max-btn-de")
 surMaxBtnDe.addEventListener("click", e => {
     if (surMax.innerHTML > 0) {
-    surMax.innerHTML --
-    a3 --
-    console.log(a3)
-}
+        surMax.innerHTML--
+        a3--
+    }
+})
+
+let neiMaxBtnIn = document.querySelector(".nei-max-btn-in")
+let neiMax = document.querySelector("#neighbors-max")
+neiMaxBtnIn.addEventListener("click", e => {
+    if (neiMax.innerHTML < 8) {
+        neiMax.innerHTML++
+        b3++
+    }
+})
+
+let neiMaxBtnDe = document.querySelector(".nei-max-btn-de")
+neiMaxBtnDe.addEventListener("click", e => {
+    if (neiMax.innerHTML > 0) {
+        neiMax.innerHTML--
+        b3--
+    }
+})
+
+let reset = document.querySelector("#reset")
+reset.addEventListener("click", e => {
+    setup()
+})
+
+let pause1 = document.querySelector("#pause1")
+pause1.addEventListener("click", e => {
+    let game = true;
+    if (game = true) {
+    pause2();
+    game = false;
+} else if (game = false) {
+    game = true;
+    play2();
+}console.log(game)
+})
+
+let randomStart = document.querySelector("#randomStart")
+randomStart.addEventListener("click", e => {
+    randomBirth = true;
+    init();
 })
 
 
@@ -39,8 +82,9 @@ let nextBoard;
 
 
 function setup() {
+    randomBirth = false;
     /* Set the canvas to be under the element #canvas*/
-    let canvas = createCanvas(windowWidth -30, windowHeight - 100);
+    let canvas = createCanvas(windowWidth - 30, windowHeight - 100);
     canvas.style('display', 'block');
     canvas.parent(document.querySelector("#canvas"));
     // canvas.position(10, 0, relative)
@@ -66,10 +110,17 @@ function setup() {
 function init() {
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
+            if (randomBirth == false) {
+                currentBoard[i][j] = 0; // one line if
+                nextBoard[i][j] = 0;
+            } else {
+                currentBoard[i][j] = random() > 0.8 ? 1 : 0;
+                nextBoard[i][j] = 0;
+            }
             // let someVariables = <condictions> : <when_true> : <when_false>;
             // currentBoard[i][j] = random() > 0.8 ? 1 : 0; // one line if
-            currentBoard[i][j] = 0; // one line if
-            nextBoard[i][j] = 0;
+            // currentBoard[i][j] = 0; // one line if
+            // nextBoard[i][j] = 0;
         }
     }
 
@@ -130,10 +181,13 @@ function generate() {
             } else if (currentBoard[x][y] == 0 && neighbors == b3) {
                 // New life due to Reproduction
                 nextBoard[x][y] = 1;
+                // fill(255);
             } else {
                 // Stasis
                 nextBoard[x][y] = currentBoard[x][y];
+
             }
+
         }
     }
 
@@ -165,8 +219,14 @@ function mousePressed() {
     mouseDragged();
 }
 
-
 function mouseReleased() {
     loop()
 }
 
+function pause2() {
+    noLoop();
+}
+
+function play2() {
+    loop();
+}

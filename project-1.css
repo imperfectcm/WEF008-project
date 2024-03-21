@@ -7,15 +7,17 @@
 .input-column > .row {
     display: flex;
     flex-wrap: nowrap !important;
+    align-content: space-between;
 }
 
 .slider-setting {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
+    justify-content: space-around;
 }
 
-.row > .col-4 {
+.row > .col {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,8 +31,9 @@
 
 .form-label {
     margin-bottom: 0 !important;
+    
     padding-right: 5px;
-    font-size: 14px;
+    font-size: 12px;
 } 
 
 .form-range {
@@ -43,6 +46,7 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    width: 200px;
 }
 
 .row > .col-3 {
@@ -53,6 +57,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: flex-start;
 }
 
 #survival-max {
@@ -63,6 +68,7 @@
     color: rgb(110, 110, 110);
     background-color: rgba(255, 255, 255, 0);
     border-radius: 10px 0 0 10px;
+    font-size: 13px;
 }
 
 #neighbors-max {
@@ -73,6 +79,7 @@
     color: rgb(110, 110, 110);
     background-color: rgba(255, 255, 255, 0);
     border-radius: 10px 0 0 10px;
+    font-size: 13px;
 }
 
 .changeNum-column {
@@ -92,4 +99,18 @@
 
 .changeNum-column > .btn-down {
     border-radius: 0 0 10px 0;
+}
+
+.fourButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.reset-row {
+    width: 150px;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    height: 40px;
 }

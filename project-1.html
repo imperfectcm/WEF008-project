@@ -18,19 +18,19 @@
     <div id="canvas"></div>
 
 
-    <div class="container text-center">
+    <div class="container-xl text-center">
       <div class="row slider-setting">
-        <div class="col-4">
+        <div class="col">
           <label for="customRange1" class="form-label">Speed</label>
           <input type="range" class="form-range frameRate1" min="10" max="120" value="30" step="10">
         </div>
 
-        <div class="col-4 input-column">
+        <div class="col input-column">
           <div class="row">
-            <div class="col-9 survival">
+            <div class="col-8 survival">
               <label class="form-label">Max no. of neighbors to survive</label>
             </div>
-            <div class="col-3 changeNum">
+            <div class="col-4 changeNum">
               <div class="text-nowrap border" id="survival-max" style="width: 5rem;" disable>3</div>
               <div class="changeNum-column">
                 <button type="button" class="btn btn-up btn-outline-secondary sur-max-btn-in">+</button>
@@ -40,12 +40,12 @@
           </div>
         </div>
 
-        <div class="col-4 input-column">
+        <div class="col input-column">
           <div class="row">
-            <div class="col-9 survival">
+            <div class="col-8 survival">
               <label class="form-label">Neighbors no. of empty cell births</label>
             </div>
-            <div class="col-3 changeNum">
+            <div class="col-4 changeNum">
               <div class="text-nowrap border" id="neighbors-max" style="width: 5rem;" disable>3</div>
               <div class="changeNum-column">
                 <button type="button" class="btn btn-up btn-outline-secondary nei-max-btn-in">+</button>
@@ -54,6 +54,13 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="fourButtons">
+        <button type="button" class="btn btn-outline-secondary reset-row" id="reset" >Reset</button>
+        <button type="button" class="btn btn-outline-secondary reset-row" id="pause1">Play / Pause</button>
+        <button type="button" class="btn btn-outline-secondary reset-row" id="randomStart">Random start</button>
+        <button type="button" class="btn btn-outline-secondary reset-row">+</button>
       </div>
     </div>
 
