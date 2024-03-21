@@ -8,6 +8,7 @@
     display: flex;
     flex-wrap: nowrap !important;
     align-content: space-between;
+    justify-content: center;
 }
 
 .slider-setting {
@@ -37,7 +38,7 @@
 } 
 
 .form-range {
-    width:75% !important;
+    width:60% !important;
     height: 0.5rem !important;
 }
 
@@ -104,13 +105,22 @@
 .fourButtons {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     padding-top: 10px;
 }
 
 .reset-row {
-    width: 150px;
+    width: 23%;
     border-radius: 10px !important;
     font-size: 13px !important;
     height: 40px;
+}
+
+.form-floating > .form-select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding-top: 5px !important;
+    min-height: 0 !important;
+    height: 40px !important;
 }
