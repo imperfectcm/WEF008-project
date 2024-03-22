@@ -1,9 +1,14 @@
 const unitLength = 20;
-let darkerColor = '#505E71';
-let moreDarkerColor = '#2E3B4E';
-let LighterColor = '#ADBACC';
-let strokeColor = '#DADBDB';
+let moreDarkerColor = '#3e3e3e';
+let darkerColor = '#8c8c8c';
+let LighterColor = '#cacaca';
+let strokeColor = '#F6F6F6';
 document.body.style.backgroundColor = strokeColor;
+var h1Elements = document.getElementsByTagName("h1");
+for(var i = 0; i < h1Elements.length; i++) {
+   h1Elements[i].style.color = moreDarkerColor;
+}
+
 let columns; /* To be determined by window width */
 let rows; /* To be determined by window height */
 let a2 = 2
@@ -133,7 +138,7 @@ reset.addEventListener("click", e => {
     a3 = 3;
     neiMax.innerHTML = 3;
     b3 = 3;
-    frameRate1.value = 30;
+    frameRate1.value = 20;
     document.querySelector("#floatingSelect").value = 6;
     pattern = 6;
     game = true;
@@ -171,6 +176,7 @@ let nextBoard;
 
 
 function setup() {
+    frameRate(20)
     randomBirth = false;
     randomColorMode = false;
     /* Set the canvas to be under the element #canvas*/
@@ -370,8 +376,7 @@ function mouseDragged() {
 
 
 function mousePressed() {
-    croodX = Math.floor(mouseX / unitLength)
-    croodY = Math.floor(mouseY / unitLength)
+    
     // fakeX = Math.floor(mouseX / unitLength)
     // fakeY = Math.floor(mouseY / unitLength)
     // croodX = fakeX
@@ -381,6 +386,9 @@ function mousePressed() {
 }
 
 function mouseReleased() {
+    croodX = Math.floor(mouseX / unitLength)
+    croodY = Math.floor(mouseY / unitLength)
+    console.log(mouseX,mouseY)
     if (game == true) {
         loop()
     }
