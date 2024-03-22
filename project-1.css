@@ -123,3 +123,8 @@
     min-height: 0 !important;
     height: 40px !important;
 }
+
+#canvas {
+    display: block;
+    padding: 20px 50px;
+}

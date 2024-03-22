@@ -1,15 +1,20 @@
 const unitLength = 20;
 let darkerColor = '#505E71';
-let moreDarkerColor = '#2E3B4E'
+let moreDarkerColor = '#2E3B4E';
 let LighterColor = '#ADBACC';
-let strokeColor = 255;
+let strokeColor = '#DADBDB';
+document.body.style.backgroundColor = strokeColor;
 let columns; /* To be determined by window width */
 let rows; /* To be determined by window height */
 let a2 = 2
 let a3 = 3
 let b3 = 3
 let r = 1
-let pattern = 0
+let pattern = 0;
+let arrowX = 0;
+let arrowY = 0;
+let croodX = 0;
+let croodY = 0;
 
 let game = true;
 let randomColorMode = false
@@ -17,7 +22,7 @@ let randomBirth = false
 
 
 let gunString =
-`........................O
+    `........................O
 ......................O.O
 ............OO......OO............OO
 ...........O...O....OO............OO
@@ -30,14 +35,14 @@ OO........O...O.OO....O.O
 let gun = gunString.split("\n")
 
 let gliderString =
-`.O
+    `.O
 ..O
 OOO`
 
 let glider = gliderString.split("\n")
 
-let spaceShipString = 
-`.O..O
+let spaceShipString =
+    `.O..O
 O
 O...O
 OOOO`
@@ -45,7 +50,7 @@ OOOO`
 let spaceShip = spaceShipString.split("\n")
 
 let pulsarString =
-`..OOO...OOO
+    `..OOO...OOO
 
 O....O.O....O
 O....O.O....O
@@ -62,7 +67,7 @@ O....O.O....O
 let pulsar = pulsarString.split("\n")
 
 let pentaString =
-`..O....O
+    `..O....O
 OO.OOOO.OO
 ..O....O`
 
@@ -129,6 +134,8 @@ reset.addEventListener("click", e => {
     neiMax.innerHTML = 3;
     b3 = 3;
     frameRate1.value = 30;
+    document.querySelector("#floatingSelect").value = 6;
+    pattern = 6;
     game = true;
     play2();
     setup()
@@ -167,9 +174,11 @@ function setup() {
     randomBirth = false;
     randomColorMode = false;
     /* Set the canvas to be under the element #canvas*/
-    let canvas = createCanvas(windowWidth - 30, windowHeight - 170);
+    let canvas = createCanvas(windowWidth - 120, windowHeight - 250);
+
     canvas.style('display', 'block');
     canvas.parent(document.querySelector("#canvas"));
+
     // canvas.position(10, 0, relative)
 
     /*Calculate the number of columns and rows */
@@ -206,14 +215,6 @@ function init() {
             // nextBoard[i][j] = 0;
         }
     }
-
-
-    currentBoard[0][3] = 1
-    currentBoard[1][3] = 1
-    currentBoard[2][3] = 1
-    currentBoard[2][2] = 1
-    currentBoard[1][1] = 1
-
 }
 
 
@@ -225,13 +226,14 @@ function draw() {
         for (let j = 0; j < rows; j++) {
             if (currentBoard[i][j] == 1 && randomColorMode == false) {
                 fill(darkerColor);
+                if (currentBoard[i][j] == 1 && nextBoard[i][j] == 1 && randomColorMode == false) {
+                    fill(moreDarkerColor);
+                }
             } else if (currentBoard[i][j] == 1 && randomColorMode == true) {
                 if (r % 2 == 1) {
                     fill(randomColor);
-
                 } else if (r % 2 == 0) {
                     fill("#" + Math.floor(Math.random() * 16777215).toString(16));
-
                 }
             } else {
                 fill(LighterColor);
@@ -240,8 +242,8 @@ function draw() {
             rect(i * unitLength, j * unitLength, unitLength, unitLength);
         }
     }
-
 }
+
 
 function generate() {
     //Loop over every single box on the board
@@ -274,9 +276,7 @@ function generate() {
             } else {
                 // Stasis
                 nextBoard[x][y] = currentBoard[x][y];
-
             }
-
         }
     }
 
@@ -294,9 +294,9 @@ function mouseDragged() {
     columns = floor(width / unitLength);
     rows = floor(height / unitLength);
 
-    if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+    if (mouseX > unitLength * columns || mouseX < 0 || mouseY > unitLength * rows || mouseY < 0) {
         return;
-    } else if (pattern == 0 || pattern == 6) {
+    } else if (pattern == 0 || pattern == 6 && x >= 0 && x <= (width / unitLength) && y >= 0 && y <= (height / unitLength)) {
         console.log(pattern)
         console.log(mouseX, mouseY, x, y)
         currentBoard[x][y] = 1;
@@ -365,12 +365,17 @@ function mouseDragged() {
             }
         }
     }
-
+    
 }
 
 
-
 function mousePressed() {
+    croodX = Math.floor(mouseX / unitLength)
+    croodY = Math.floor(mouseY / unitLength)
+    // fakeX = Math.floor(mouseX / unitLength)
+    // fakeY = Math.floor(mouseY / unitLength)
+    // croodX = fakeX
+    // croodY = fakeY
     noLoop();
     mouseDragged();
 }
@@ -394,9 +399,83 @@ function getRandomCode() {
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-  }
+    createCanvas(windowWidth - 130, windowHeight - 170);
+    setup();
+    // resizeCanvas(windowWidth - 30, windowHeight - 170)
+}
 
-
-
-
+function keyPressed() {
+    if (keyCode === DOWN_ARROW) {
+        if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
+            noLoop()
+            croodY++
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
+        } else {
+            noLoop()
+            arrowY++
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+        }
+    } else if (keyCode === UP_ARROW) {
+        if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
+            noLoop()
+            croodY--
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
+        } else {
+            noLoop()
+            arrowY--
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+        }
+    } else if (keyCode === LEFT_ARROW) {
+        if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
+            noLoop()
+            croodX--
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
+        } else {
+            noLoop()
+            arrowX--
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+        }
+    } else if (keyCode === RIGHT_ARROW) {
+        if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
+            noLoop()
+            croodX++
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
+        } else {
+            noLoop()
+            arrowX++
+            currentBoard[croodX][croodY] = 1
+            fill(darkerColor);
+            stroke(strokeColor);
+            rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+        }
+    } else if (keyCode === ENTER) {
+        if (game == true) {
+            game = false;
+            pause2();
+        } else if (game == false) {
+            game = true;
+            play2();
+        }
+    }
+}
