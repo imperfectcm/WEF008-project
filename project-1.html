@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anek+Gurmukhi:wght@100..800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Gurmukhi:wght@100..800&display=swap" rel="stylesheet">
   <title>Project-1</title>
 </head>
 
@@ -56,43 +59,43 @@
       <div class="row slider-setting">
 
 
-        <div class="col input-column">
-          <div class="row">
-            <div class="col-8 survival">
-              <label class="form-label">Max no. of neighbors to survive</label>
+          <div class="col input-column">
+            <div class="row">
+              <div class="col-8 survival">
+                <label class="form-label">Max no. of neighbors to survive</label>
+              </div>
+              <div class="col-4 changeNum">
+                <div class="text-nowrap border" id="survival-max" style="width: 5rem;" disable>3</div>
+                <div class="changeNum-column">
+                  <button type="button" class="btn btn-up btn-outline-secondary sur-max-btn-in">+</button>
+                  <button type="button" class="btn btn-down btn-outline-secondary sur-max-btn-de">-</button>
+                </div>
+              </div>
             </div>
-            <div class="col-4 changeNum">
-              <div class="text-nowrap border" id="survival-max" style="width: 5rem;" disable>3</div>
-              <div class="changeNum-column">
-                <button type="button" class="btn btn-up btn-outline-secondary sur-max-btn-in">+</button>
-                <button type="button" class="btn btn-down btn-outline-secondary sur-max-btn-de">-</button>
+          </div>
+
+          <div class="col input-column">
+            <div class="row">
+              <div class="col-8 survival">
+                <label class="form-label">Neighbors no. of empty cell births</label>
+              </div>
+              <div class="col-4 changeNum">
+                <div class="text-nowrap border" id="neighbors-max" style="width: 5rem;" disable>3</div>
+                <div class="changeNum-column">
+                  <button type="button" class="btn btn-up btn-outline-secondary nei-max-btn-in">+</button>
+                  <button type="button" class="btn btn-down btn-outline-secondary nei-max-btn-de">-</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col input-column">
-          <div class="row">
-            <div class="col-8 survival">
-              <label class="form-label">Neighbors no. of empty cell births</label>
-            </div>
-            <div class="col-4 changeNum">
-              <div class="text-nowrap border" id="neighbors-max" style="width: 5rem;" disable>3</div>
-              <div class="changeNum-column">
-                <button type="button" class="btn btn-up btn-outline-secondary nei-max-btn-in">+</button>
-                <button type="button" class="btn btn-down btn-outline-secondary nei-max-btn-de">-</button>
-              </div>
-            </div>
-          </div>
+        <div class="fourButtons">
+          <button type="button" class="btn btn-outline-secondary reset-row" id="reset">Reset</button>
+          <button type="button" class="btn btn-outline-secondary reset-row" id="pause1">Play / Pause</button>
+          <button type="button" class="btn btn-outline-secondary reset-row" id="randomStart">Random start</button>
+          <button type="button" class="btn btn-outline-secondary reset-row" id="randomColor">Random color Mode</button>
         </div>
-      </div>
-
-      <div class="fourButtons">
-        <button type="button" class="btn btn-outline-secondary reset-row" id="reset">Reset</button>
-        <button type="button" class="btn btn-outline-secondary reset-row" id="pause1">Play / Pause</button>
-        <button type="button" class="btn btn-outline-secondary reset-row" id="randomStart">Random start</button>
-        <button type="button" class="btn btn-outline-secondary reset-row" id="randomColor">Random color Mode</button>
-      </div>
 
 
       <div class="style row">
