@@ -1,13 +1,51 @@
 const unitLength = 20;
-let moreDarkerColor = '#3e3e3e';
-let darkerColor = '#8c8c8c';
-let LighterColor = '#cacaca';
+let secondLife = false;
+let thirdLife = false;
+let thirdLifeColor = '#232323'
+let secondLifeColor = '#3e3e3e';
+let lifeColor = '#8c8c8c';
+let emptyColor = '#cacaca';
 let strokeColor = '#F6F6F6';
 document.body.style.backgroundColor = strokeColor;
-var h1Elements = document.getElementsByTagName("h1");
-for(var i = 0; i < h1Elements.length; i++) {
-   h1Elements[i].style.color = moreDarkerColor;
+let h1Elements = document.getElementsByTagName("h1");
+for (var i = 0; i < h1Elements.length; i++) {
+    h1Elements[i].style.color = secondLifeColor;
 }
+let C1 = document.querySelector(".sliderName");
+let C2 = document.querySelector(".maxNei");
+let C3 = document.querySelector(".maxNeiR");
+let C4 = document.querySelector(".btnCM");
+let C5 = document.querySelector(".btnCM2");
+let C6 = document.querySelector(".btnCM3");
+let C7 = document.querySelector(".btnCM4");
+let C8 = document.querySelector(".form-select");
+
+let C9 = document.querySelector(".changeNum")
+let C10 = document.querySelector(".btn-up")
+let C11 = document.querySelector(".btn-down")
+let C12 = document.querySelector(".changeNum1")
+let C13 = document.querySelector(".btn-up1")
+let C14 = document.querySelector(".btn-down1")
+
+
+// C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C12.style.color = secondLifeColor;
+
+// C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = "#FFFFFF";
+
+let darkColorMode = document.querySelector("#darkColorMode")
+darkColorMode.addEventListener("click", e => {
+    secondLifeColor = '#5f6063';
+    lifeColor = '#7d7e82';
+    emptyColor = '#acadb1';
+    strokeColor = '#343536';
+    document.body.style.backgroundColor = strokeColor;
+    for (var i = 0; i < h1Elements.length; i++) {
+        h1Elements[i].style.color = emptyColor;
+    }
+    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = "#FFFFFF";
+    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = lifeColor;
+})
+
 
 let columns; /* To be determined by window width */
 let rows; /* To be determined by window height */
@@ -24,7 +62,6 @@ let croodY = 0;
 let game = true;
 let randomColorMode = false
 let randomBirth = false
-
 
 let gunString =
     `........................O
@@ -139,8 +176,8 @@ reset.addEventListener("click", e => {
     neiMax.innerHTML = 3;
     b3 = 3;
     frameRate1.value = 20;
-    document.querySelector("#floatingSelect").value = 6;
-    pattern = 6;
+    document.querySelector("#floatingSelect").value = 0;
+    pattern = 0;
     game = true;
     play2();
     setup()
@@ -180,7 +217,7 @@ function setup() {
     randomBirth = false;
     randomColorMode = false;
     /* Set the canvas to be under the element #canvas*/
-    let canvas = createCanvas(windowWidth - 120, windowHeight - 250);
+    let canvas = createCanvas(windowWidth - 120, windowHeight - 290);
 
     canvas.style('display', 'block');
     canvas.parent(document.querySelector("#canvas"));
@@ -231,9 +268,13 @@ function draw() {
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
             if (currentBoard[i][j] == 1 && randomColorMode == false) {
-                fill(darkerColor);
-                if (currentBoard[i][j] == 1 && nextBoard[i][j] == 1 && randomColorMode == false) {
-                    fill(moreDarkerColor);
+                fill(lifeColor);
+                if (nextBoard[i][j] == 1) {
+                    fill(secondLifeColor);
+                    secondLife = true
+                } else if (currentBoard[i][j] == 1 && secondLife) {
+                    fill(thirdLifeColor);
+                    thirdLife = true
                 }
             } else if (currentBoard[i][j] == 1 && randomColorMode == true) {
                 if (r % 2 == 1) {
@@ -242,7 +283,9 @@ function draw() {
                     fill("#" + Math.floor(Math.random() * 16777215).toString(16));
                 }
             } else {
-                fill(LighterColor);
+                fill(emptyColor);
+                secondLife = false;
+                thirdLife = false;
             }
             stroke(strokeColor);
             rect(i * unitLength, j * unitLength, unitLength, unitLength);
@@ -306,7 +349,7 @@ function mouseDragged() {
         console.log(pattern)
         console.log(mouseX, mouseY, x, y)
         currentBoard[x][y] = 1;
-        fill(darkerColor);
+        fill(lifeColor);
         stroke(strokeColor);
         rect(x * unitLength, y * unitLength, unitLength, unitLength);
 
@@ -316,7 +359,7 @@ function mouseDragged() {
             for (let j in gun[i]) {
                 if (gun[i][j] == "O") {
                     currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
-                    fill(darkerColor);
+                    fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
                 }
@@ -328,7 +371,7 @@ function mouseDragged() {
             for (let j in glider[i]) {
                 if (glider[i][j] == "O") {
                     currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
-                    fill(darkerColor);
+                    fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
                 }
@@ -340,7 +383,7 @@ function mouseDragged() {
             for (let j in spaceShip[i]) {
                 if (spaceShip[i][j] == "O") {
                     currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
-                    fill(darkerColor);
+                    fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
                 }
@@ -352,7 +395,7 @@ function mouseDragged() {
             for (let j in pulsar[i]) {
                 if (pulsar[i][j] == "O") {
                     currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
-                    fill(darkerColor);
+                    fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
                 }
@@ -364,19 +407,19 @@ function mouseDragged() {
             for (let j in penta[i]) {
                 if (penta[i][j] == "O") {
                     currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
-                    fill(darkerColor);
+                    fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
                 }
             }
         }
     }
-    
+
 }
 
 
 function mousePressed() {
-    
+
     // fakeX = Math.floor(mouseX / unitLength)
     // fakeY = Math.floor(mouseY / unitLength)
     // croodX = fakeX
@@ -388,7 +431,7 @@ function mousePressed() {
 function mouseReleased() {
     croodX = Math.floor(mouseX / unitLength)
     croodY = Math.floor(mouseY / unitLength)
-    console.log(mouseX,mouseY)
+    console.log(mouseX, mouseY)
     if (game == true) {
         loop()
     }
@@ -418,14 +461,14 @@ function keyPressed() {
             noLoop()
             croodY++
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
         } else {
             noLoop()
             arrowY++
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
         }
@@ -434,14 +477,14 @@ function keyPressed() {
             noLoop()
             croodY--
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
         } else {
             noLoop()
             arrowY--
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
         }
@@ -450,14 +493,14 @@ function keyPressed() {
             noLoop()
             croodX--
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
         } else {
             noLoop()
             arrowX--
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
         }
@@ -466,14 +509,14 @@ function keyPressed() {
             noLoop()
             croodX++
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
         } else {
             noLoop()
             arrowX++
             currentBoard[croodX][croodY] = 1
-            fill(darkerColor);
+            fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
         }
