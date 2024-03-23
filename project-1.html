@@ -26,11 +26,20 @@
       <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
         aria-expanded="false">
         <div class="setting">
-          <img src="setting.png" alt="setting" width="25" height="20">
+          <div class="set1"></div>
+          <div class="set2"></div>
+          <div class="set3"></div>
+          <!-- <img src="setting.png" alt="setting" width="25" height="20"> -->
         </div>
       </button>
 
       <div class="colorTheme">
+        <button class="color" type="button" id="whiteColorMode">
+          white
+        </button>
+        <button class="color" type="button" id="navyColorMode">
+          navy
+        </button>
         <button class="color" type="button" id="darkColorMode">
           dark
         </button>
@@ -50,7 +59,7 @@
         <div class="form-floating">
           <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
             <option selected value="0">Try a special pattern</option>
-            <option value="1" id="gosper">Gosper Glider Gun</option>
+            <option value="1" id="gosper">Gosper glider gun</option>
             <option value="2" id="glider">Glider</option>
             <option value="3" id="spaceship">Lightweight spaceship</option>
             <option value="4" id="pulsar">Pulsar</option>
@@ -66,21 +75,23 @@
 
         <div class="neiSurvival">
           <div class="maxNei">Max Qty. of neighbors to survive</div>
-          <div class="changeNum" id="survival-max" disable>3</div>
-          <div class="changeNum-column">
-            <button type="button" class="btn-up sur-max-btn-in">+</button>
-            <button type="button" class="btn-down sur-max-btn-de">-</button>
+          <div class="buttonShadowBox">
+            <div class="changeNum" id="survival-max" disable>3</div>
+            <div class="changeNum-column">
+              <button type="button" class="btn-up sur-max-btn-in">+</button>
+              <button type="button" class="btn-down sur-max-btn-de">-</button>
+            </div>
           </div>
-          <div class="buttonShadowBox"></div>
         </div>
 
         <div class="neiSurvival-right">
           <div class="maxNeiR">Neighbors Qty. with empty cell births</div>
-          <div class="buttonShadowBox-right"></div>
-          <div class="changeNum changeNum1" id="neighbors-max" disable>3</div>
-          <div class="changeNum-column">
-            <button type="button" class="btn-up btn-up1 nei-max-btn-in">+</button>
-            <button type="button" class="btn-down btn-down1 nei-max-btn-de">-</button>
+          <div class="buttonShadowBox-right">
+            <div class="changeNum changeNum1" id="neighbors-max" disable>3</div>
+            <div class="changeNum-column">
+              <button type="button" class="btn-up btn-up1 nei-max-btn-in">+</button>
+              <button type="button" class="btn-down btn-down1 nei-max-btn-de">-</button>
+            </div>
           </div>
         </div>
 
@@ -91,7 +102,7 @@
           <button type="button" class="btnCM" id="reset">Reset</button>
           <button type="button" class="btnCM btnCM2" id="pause1">Play / Pause</button>
           <button type="button" class="btnCM btnCM3" id="randomStart">Random start</button>
-          <button type="button" class="btnCM btnCM4" id="randomColor">Random color Mode</button>
+          <button type="button" class="btnCM btnCM4" id="randomColor">Colorful mode</button>
         </div>
         <!-- <div class="longButtonShadowBox"></div> -->
       </div>

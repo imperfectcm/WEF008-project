@@ -25,11 +25,21 @@ h1 {
 .setting {
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
+    height: 24px;
+    width: 24px;
 }
 
-.setting img {
-    filter: brightness(0) saturate(100%) invert(63%) sepia(1%) saturate(1222%) hue-rotate(319deg) brightness(89%) contrast(82%);
+.setting > div {
+    display: flex;
+    width: 24px;
+    height: 8px;
+    border-top: 3px solid #686868;
 }
+
+/* .setting img {
+    filter: brightness(0) saturate(100%) invert(63%) sepia(1%) saturate(1222%) hue-rotate(319deg) brightness(89%) contrast(82%);
+} */
 
 /* first layer */
 .sliderAndPattern {
@@ -60,7 +70,7 @@ input[type=range] {
     -o-appearance: none;
     appearance: none;
     margin: 15px 0;
-    min-width: 250px;
+    width: 250px;
     outline: none;
 }
 
@@ -144,6 +154,26 @@ input[type='range']::-ms-thumb {
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
+@media (max-width: 855px) {
+    .sliderAndPattern {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 0 70px;
+        margin-bottom: 15px;
+    }
+    .gameSpeedBox {
+        margin-bottom: 15px;
+    }
+    input[type=range] {
+        width: 225px;
+    }
+    .form-select {
+        width: 318px !important;
+    }
+}
+
 /* first layer */
 
 /* second layer */
@@ -173,7 +203,6 @@ input[type='range']::-ms-thumb {
 }
 
 #survival-max {
-    position: relative;
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -195,7 +224,6 @@ input[type='range']::-ms-thumb {
 }
 
 .btn-up {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -216,7 +244,6 @@ input[type='range']::-ms-thumb {
 }
 
 .btn-down {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -237,12 +264,10 @@ input[type='range']::-ms-thumb {
 }
 
 .buttonShadowBox {
-    position: relative;
-    right: 75px;
+    display: flex;
     width: 75px;
     height: 30px;
     border-radius: 12px 12px 12px 12px !important;
-    border: 0.5px solid rgba(0, 0, 0, 0.04) !important;
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
@@ -254,7 +279,6 @@ input[type='range']::-ms-thumb {
 }
 
 #neighbors-max {
-    position: relative; 
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -271,12 +295,28 @@ input[type='range']::-ms-thumb {
 }
 
 .buttonShadowBox-right {
-    position: absolute;
+    display: flex;
     width: 75px;
     height: 30px;
     border-radius: 12px 12px 12px 12px !important;
-    border: 0.5px solid rgba(0, 0, 0, 0.04) !important;
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (max-width: 855px) {
+    .rulesAndColor {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 0 70px;
+        margin-bottom: 15px;
+    }
+    .maxNei {
+        letter-spacing: 0.9px;
+    }
+    .neiSurvival {
+        margin-bottom: 15px;
+    }
 }
 /* second layer */
 
@@ -323,6 +363,12 @@ input[type='range']::-ms-thumb {
     width: 100%;
     height: 30px;
     border-radius: 12px 12px 12px 12px !important;
-    border: 0.5px solid rgba(0, 0, 0, 0.04) !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (max-width: 855px) {
+    .longButtonShadowBox {
+        min-width: 440px;
+        margin-bottom: 5px;
+    }
 }

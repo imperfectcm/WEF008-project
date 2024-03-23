@@ -1,11 +1,11 @@
 const unitLength = 20;
 let secondLife = false;
 let thirdLife = false;
-let thirdLifeColor = '#232323'
-let secondLifeColor = '#3e3e3e';
-let lifeColor = '#8c8c8c';
-let emptyColor = '#cacaca';
-let strokeColor = '#F6F6F6';
+let thirdLifeColor = '#404040';
+let secondLifeColor = '#707070';
+let lifeColor = '#B0B0B0';
+let emptyColor = '#E0E0E0';
+let strokeColor = '#FFFFFF';
 document.body.style.backgroundColor = strokeColor;
 let h1Elements = document.getElementsByTagName("h1");
 for (var i = 0; i < h1Elements.length; i++) {
@@ -27,23 +27,74 @@ let C12 = document.querySelector(".changeNum1")
 let C13 = document.querySelector(".btn-up1")
 let C14 = document.querySelector(".btn-down1")
 
+let C15 = document.querySelector(".set1")
+let C16 = document.querySelector(".set2")
+let C17 = document.querySelector(".set3")
 
 // C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C12.style.color = secondLifeColor;
 
 // C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = "#FFFFFF";
 
-let darkColorMode = document.querySelector("#darkColorMode")
-darkColorMode.addEventListener("click", e => {
-    secondLifeColor = '#5f6063';
-    lifeColor = '#7d7e82';
-    emptyColor = '#acadb1';
-    strokeColor = '#343536';
+let whiteColorMode = document.querySelector("#whiteColorMode")
+whiteColorMode.addEventListener("click", e => {
+    thirdLifeColor = '#404040';
+    secondLifeColor = '#707070';
+    lifeColor = '#B0B0B0';
+    emptyColor = '#E0E0E0';
+    strokeColor = '#FFFFFF';
     document.body.style.backgroundColor = strokeColor;
+
+    for (var i = 0; i < h1Elements.length; i++) {
+        h1Elements[i].style.color = thirdLifeColor;
+    }
+    // above is H1 color
+    C15.style.borderColor = C16.style.borderColor = C17.style.borderColor = secondLifeColor
+    // above is setting icon color
+    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = secondLifeColor;
+    // above are words color
+    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = strokeColor;
+    // above are buttons color
+
+})
+
+let navyColorMode = document.querySelector("#navyColorMode")
+navyColorMode.addEventListener("click", e => {
+    thirdLifeColor = '#263645';
+    secondLifeColor = '#344759';
+    lifeColor = '#4F6478';
+    emptyColor = '#939AA0';
+    strokeColor = '#263645';
+    document.body.style.backgroundColor = strokeColor;
+
     for (var i = 0; i < h1Elements.length; i++) {
         h1Elements[i].style.color = emptyColor;
     }
-    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = "#FFFFFF";
-    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = lifeColor;
+    // above is H1 color
+    C15.style.borderColor = C16.style.borderColor = C17.style.borderColor = emptyColor
+    // above is setting icon color
+    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = emptyColor;
+    // above are words color
+    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = '#425465';
+    // above are buttons color
+})
+
+let darkColorMode = document.querySelector("#darkColorMode")
+darkColorMode.addEventListener("click", e => {
+    thirdLifeColor = '#ffffff';
+    secondLifeColor = '#e0e0e0';
+    lifeColor = '#b0b0b0';
+    emptyColor = '#707070';
+    strokeColor = '#404040';
+    document.body.style.backgroundColor = strokeColor;
+
+    for (var i = 0; i < h1Elements.length; i++) {
+        h1Elements[i].style.color = thirdLifeColor;
+    }
+    // above is H1 color
+    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = thirdLifeColor;
+    // above are words color
+    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = emptyColor;
+    // above are buttons color
 })
 
 
@@ -530,3 +581,20 @@ function keyPressed() {
         }
     }
 }
+
+var keys = {};
+window.addEventListener("keydown",
+    function (e) {
+        keys[e.code] = true;
+        switch (e.code) {
+            case "ArrowUp": case "ArrowDown": case "ArrowLeft": case "ArrowRight":
+            case "Space": e.preventDefault(); break;
+            default: break; // do not block other keys
+        }
+    },
+    false);
+window.addEventListener('keyup',
+    function (e) {
+        keys[e.code] = false;
+    },
+    false);
