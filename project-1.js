@@ -31,6 +31,18 @@ let C15 = document.querySelector(".set1")
 let C16 = document.querySelector(".set2")
 let C17 = document.querySelector(".set3")
 
+let aud = document.querySelector("#blackpinkColorMode").children[1];
+let isPlaying = false
+aud.pause();
+function playPause() {
+    if (isPlaying) {
+        aud.pause();
+    } else {
+        aud.play();
+    }
+    isPlaying = !isPlaying;
+}
+
 // C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C12.style.color = secondLifeColor;
 
 // C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = "#FFFFFF";
@@ -78,6 +90,47 @@ navyColorMode.addEventListener("click", e => {
     // above are buttons color
 })
 
+let tiffanyColorMode = document.querySelector("#tiffanyColorMode")
+tiffanyColorMode.addEventListener("click", e => {
+    thirdLifeColor = '#318C83';
+    secondLifeColor = '#47A59C';
+    lifeColor = '#62C0B7';
+    emptyColor = '#81D8D0';
+    strokeColor = '#F7FFFD';
+    document.body.style.backgroundColor = strokeColor;
+
+    for (var i = 0; i < h1Elements.length; i++) {
+        h1Elements[i].style.color = thirdLifeColor;
+    }
+    // above is H1 color
+    C15.style.borderColor = C16.style.borderColor = C17.style.borderColor = thirdLifeColor
+    // above is setting icon color
+    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = thirdLifeColor;
+    // above are words color
+    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = emptyColor;
+    // above are buttons color
+})
+
+let blackpinkColorMode = document.querySelector("#blackpinkColorMode")
+blackpinkColorMode.addEventListener("click", e => {
+    thirdLifeColor = '#9D4A63';
+    secondLifeColor = '#D07590';
+    lifeColor = '#F8A4BD';
+    emptyColor = '#0A0A0A';
+    strokeColor = '#F8A4BD';
+    document.body.style.backgroundColor = strokeColor;
+    for (var i = 0; i < h1Elements.length; i++) {
+        h1Elements[i].style.color = emptyColor;
+    }
+    // above is H1 color
+    C15.style.borderColor = C16.style.borderColor = C17.style.borderColor = emptyColor
+    // above is setting icon color
+    C1.style.color = C2.style.color = C3.style.color = C4.style.color = C5.style.color = C6.style.color = C7.style.color = C8.style.color = C9.style.color = C10.style.color = C11.style.color = C12.style.color = C13.style.color = C14.style.color = '#FFFFFF';
+    // above are words color
+    C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = emptyColor;
+    // above are buttons color
+})
+
 let darkColorMode = document.querySelector("#darkColorMode")
 darkColorMode.addEventListener("click", e => {
     thirdLifeColor = '#ffffff';
@@ -96,7 +149,6 @@ darkColorMode.addEventListener("click", e => {
     C4.style.backgroundColor = C5.style.backgroundColor = C6.style.backgroundColor = C7.style.backgroundColor = C8.style.backgroundColor = C9.style.backgroundColor = C10.style.backgroundColor = C11.style.backgroundColor = C12.style.backgroundColor = C13.style.backgroundColor = C14.style.backgroundColor = emptyColor;
     // above are buttons color
 })
-
 
 let columns; /* To be determined by window width */
 let rows; /* To be determined by window height */
@@ -321,13 +373,18 @@ function draw() {
             if (currentBoard[i][j] == 1 && randomColorMode == false) {
                 fill(lifeColor);
                 if (nextBoard[i][j] == 1) {
-                    fill(secondLifeColor);
-                    secondLife = true
-                } else if (currentBoard[i][j] == 1 && secondLife) {
-                    fill(thirdLifeColor);
-                    thirdLife = true
+                    if (secondLife) {
+                        fill(thirdLifeColor);
+                        thirdLife = true
+                    } else if (thirdLife) {
+                        fill(thirdLifeColor);
+                    } else {
+                        fill(secondLifeColor);
+                        secondLife = true
+                    }
                 }
-            } else if (currentBoard[i][j] == 1 && randomColorMode == true) {
+            }
+            else if (currentBoard[i][j] == 1 && randomColorMode == true) {
                 if (r % 2 == 1) {
                     fill(randomColor);
                 } else if (r % 2 == 0) {
@@ -508,6 +565,7 @@ function windowResized() {
 
 function keyPressed() {
     if (keyCode === DOWN_ARROW) {
+
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
             noLoop()
             croodY++
@@ -515,13 +573,14 @@ function keyPressed() {
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
-        } else {
+        } else if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
             noLoop()
             arrowY++
             currentBoard[croodX][croodY] = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+
         }
     } else if (keyCode === UP_ARROW) {
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
@@ -531,13 +590,15 @@ function keyPressed() {
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
-        } else {
-            noLoop()
+        } else if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
+            currentBoard[croodX][croodY] = 1
+
             arrowY--
             currentBoard[croodX][croodY] = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+
         }
     } else if (keyCode === LEFT_ARROW) {
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
@@ -547,13 +608,15 @@ function keyPressed() {
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
-        } else {
+        } else if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
+
             noLoop()
             arrowX--
             currentBoard[croodX][croodY] = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+
         }
     } else if (keyCode === RIGHT_ARROW) {
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
@@ -563,13 +626,15 @@ function keyPressed() {
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
-        } else {
+        } else if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
+
             noLoop()
             arrowX++
             currentBoard[croodX][croodY] = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
+
         }
     } else if (keyCode === ENTER) {
         if (game == true) {

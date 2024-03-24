@@ -37,6 +37,55 @@ h1 {
     border-top: 3px solid #686868;
 }
 
+.colorTheme {
+    display: flex;
+    align-items: center;
+}
+
+.color {
+    border: 0;
+    border-radius: 100%;
+    padding: 2px;
+    margin-left: 8px;
+    border: 0.5px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#whiteColorMode {
+    background-color: #FFFFFF;
+}
+.whiteMode {
+    filter: brightness(0) saturate(100%) invert(86%) sepia(2%) saturate(0%) hue-rotate(28deg) brightness(100%) contrast(95%);
+}
+
+#navyColorMode {
+    background-color: #43688A;
+}
+.navyMode {
+    filter: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5282%) hue-rotate(191deg) brightness(78%) contrast(86%);
+}
+
+#tiffanyColorMode {
+    background-color: #81D8D0;
+}
+.tiffanyMode {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(42%) saturate(3852%) hue-rotate(178deg) brightness(110%) contrast(109%);
+}
+
+#blackpinkColorMode {
+    background-color: #F8A4BD;
+}
+.blackpinkMode {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(5799%) hue-rotate(152deg) brightness(107%) contrast(93%);
+}
+
+#darkColorMode {
+    background-color: #505050;
+}
+.darkMode {
+    filter: brightness(0) saturate(100%) invert(61%) sepia(0%) saturate(560%) hue-rotate(155deg) brightness(99%) contrast(81%);
+}
+
 /* .setting img {
     filter: brightness(0) saturate(100%) invert(63%) sepia(1%) saturate(1222%) hue-rotate(319deg) brightness(89%) contrast(82%);
 } */
