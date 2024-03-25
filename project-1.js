@@ -370,14 +370,15 @@ function draw() {
 
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
+
             if (currentBoard[i][j] == 1 && randomColorMode == false) {
                 fill(lifeColor);
                 if (nextBoard[i][j] == 1) {
-                    if (secondLife) {
+                    if (thirdLife) {
+                        fill(thirdLifeColor);
+                    } else if (secondLife) {
                         fill(thirdLifeColor);
                         thirdLife = true
-                    } else if (thirdLife) {
-                        fill(thirdLifeColor);
                     } else {
                         fill(secondLifeColor);
                         secondLife = true
@@ -418,7 +419,6 @@ function generate() {
                     neighbors += currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
                 }
             }
-
             // Rules of Life
             if (currentBoard[x][y] == 1 && neighbors < a2) {
                 // Die of Loneliness
