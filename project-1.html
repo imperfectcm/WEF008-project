@@ -1,126 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.1/lib/p5.js"></script>
+    <link rel="stylesheet" href="./project-1.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Gurmukhi:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Gurmukhi:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Project-1</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.1/lib/p5.js"></script>
-  <link rel="stylesheet" href="./project-1.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Gurmukhi:wght@100..800&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Gurmukhi:wght@100..800&display=swap" rel="stylesheet">
-  <title>Project-1</title>
-</head>
+  <body>
+    <div class="container-fluid">
+      <h1>Conway's Game of Life</h1>
+      <div id="canvas"></div>
 
-<body>
-  <div class="container-fluid">
-    <h1>Conway's Game of Life</h1>
-    <div id="canvas"></div>
+      <div class="settingItem">
+        <button
+          class="btn"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseExample"
+          aria-expanded="false"
+        >
+          <div class="setting">
+            <div class="set1"></div>
+            <div class="set2"></div>
+            <div class="set3"></div>
+            <!-- <img src="setting.png" alt="setting" width="25" height="20"> -->
+          </div>
+        </button>
 
-    <div class="settingItem">
-      <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-        aria-expanded="false">
-        <div class="setting">
-          <div class="set1"></div>
-          <div class="set2"></div>
-          <div class="set3"></div>
-          <!-- <img src="setting.png" alt="setting" width="25" height="20"> -->
+        <div class="colorTheme">
+          <button class="color" type="button" id="whiteColorMode">
+            <img
+              src="colorThemeIcon.png"
+              alt="whiteMode"
+              class="whiteMode"
+              width="25px"
+              height="25px"
+            />
+          </button>
+          <button class="color" type="button" id="navyColorMode">
+            <img
+              src="colorThemeIcon.png"
+              alt="navyMode"
+              class="navyMode"
+              width="25px"
+              height="25px"
+            />
+          </button>
+          <button class="color" type="button" id="tiffanyColorMode">
+            <img
+              src="colorThemeIcon.png"
+              alt="tiffanyMode"
+              class="tiffanyMode"
+              width="25px"
+              height="25px"
+            />
+          </button>
+          <button class="color" type="button" id="blackpinkColorMode">
+            <img
+              src="colorThemeIcon.png"
+              alt="blackpinkMode"
+              class="blackpinkMode"
+              width="25px"
+              height="25px"
+              onclick="playPause()"
+            />
+            <audio src="howYouLikeThatToProject.mp3" autoplay loop></audio>
+          </button>
+          <button class="color" type="button" id="darkColorMode">
+            <img
+              src="colorThemeIcon.png"
+              alt="darkMode"
+              class="darkMode"
+              width="25px"
+              height="25px"
+            />
+          </button>
         </div>
-      </button>
-
-      <div class="colorTheme">
-        <button class="color" type="button" id="whiteColorMode">
-          <img src="colorThemeIcon.png" alt="whiteMode" class="whiteMode" width="25px" height="25px">
-        </button>
-        <button class="color" type="button" id="navyColorMode">
-          <img src="colorThemeIcon.png" alt="navyMode" class="navyMode" width="25px" height="25px">
-        </button>
-        <button class="color" type="button" id="tiffanyColorMode">
-          <img src="colorThemeIcon.png" alt="tiffanyMode" class="tiffanyMode" width="25px" height="25px">
-        </button>
-        <button class="color" type="button" id="blackpinkColorMode">
-          <img src="colorThemeIcon.png" alt="blackpinkMode" class="blackpinkMode" width="25px" height="25px" onclick="playPause()">
-          <audio src="howYouLikeThatToProject.mp3" autoplay loop></audio>
-        </button>
-        <button class="color" type="button" id="darkColorMode">
-          <img src="colorThemeIcon.png" alt="darkMode" class="darkMode" width="25px" height="25px">
-        </button>
-
-
       </div>
-    </div>
-    <div class="collapse" id="collapseExample">
+      <div class="collapse" id="collapseExample">
+        <div class="sliderAndPattern">
+          <div class="gameSpeedBox">
+            <div class="sliderName">Game Speed</div>
+            <input
+              type="range"
+              class="frameRate1"
+              min="5"
+              max="60"
+              value="20"
+              step="5"
+            />
+          </div>
 
-
-      <div class="sliderAndPattern">
-
-        <div class="gameSpeedBox">
-          <div class="sliderName">Game Speed</div>
-          <input type="range" class="frameRate1" min="5" max="60" value="20" step="5">
+          <div class="form-floating">
+            <select
+              class="form-select"
+              id="floatingSelect"
+              aria-label="Floating label select example"
+            >
+              <option selected value="0">Try a special pattern</option>
+              <option value="1" id="gosper">Gosper glider gun</option>
+              <option value="2" id="glider">Glider</option>
+              <option value="3" id="spaceship">Lightweight spaceship</option>
+              <option value="4" id="pulsar">Pulsar</option>
+              <option value="5" id="pentadecathlon">Pentadecathlon</option>
+              <option value="6">Normal</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-floating">
-          <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-            <option selected value="0">Try a special pattern</option>
-            <option value="1" id="gosper">Gosper glider gun</option>
-            <option value="2" id="glider">Glider</option>
-            <option value="3" id="spaceship">Lightweight spaceship</option>
-            <option value="4" id="pulsar">Pulsar</option>
-            <option value="5" id="pentadecathlon">Pentadecathlon</option>
-            <option value="6">Normal</option>
-          </select>
-        </div>
+        <div class="rulesAndColor">
+          <div class="neiSurvival">
+            <div class="maxNei">Max Qty. of neighbors to survive</div>
+            <div class="buttonShadowBox">
+              <div class="changeNum" id="survival-max" disable>3</div>
+              <div class="changeNum-column">
+                <button type="button" class="btn-up sur-max-btn-in">+</button>
+                <button type="button" class="btn-down sur-max-btn-de">-</button>
+              </div>
+            </div>
+          </div>
 
-      </div>
-
-
-      <div class="rulesAndColor">
-
-        <div class="neiSurvival">
-          <div class="maxNei">Max Qty. of neighbors to survive</div>
-          <div class="buttonShadowBox">
-            <div class="changeNum" id="survival-max" disable>3</div>
-            <div class="changeNum-column">
-              <button type="button" class="btn-up sur-max-btn-in">+</button>
-              <button type="button" class="btn-down sur-max-btn-de">-</button>
+          <div class="neiSurvival-right">
+            <div class="maxNeiR">Neighbors Qty. with empty cell births</div>
+            <div class="buttonShadowBox-right">
+              <div class="changeNum changeNum1" id="neighbors-max" disable>
+                3
+              </div>
+              <div class="changeNum-column">
+                <button type="button" class="btn-up btn-up1 nei-max-btn-in">
+                  +
+                </button>
+                <button type="button" class="btn-down btn-down1 nei-max-btn-de">
+                  -
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="neiSurvival-right">
-          <div class="maxNeiR">Neighbors Qty. with empty cell births</div>
-          <div class="buttonShadowBox-right">
-            <div class="changeNum changeNum1" id="neighbors-max" disable>3</div>
-            <div class="changeNum-column">
-              <button type="button" class="btn-up btn-up1 nei-max-btn-in">+</button>
-              <button type="button" class="btn-down btn-down1 nei-max-btn-de">-</button>
-            </div>
+        <div class="fourButtons">
+          <div class="longButtonShadowBox">
+            <button type="button" class="btnCM" id="reset">Reset</button>
+            <button type="button" class="btnCM btnCM2" id="pause1">
+              Play / Pause
+            </button>
+            <button type="button" class="btnCM btnCM3" id="randomStart">
+              Random start
+            </button>
+            <button type="button" class="btnCM btnCM4" id="randomColor">
+              Colorful mode
+            </button>
           </div>
+          <!-- <div class="longButtonShadowBox"></div> -->
         </div>
-
       </div>
 
-      <div class="fourButtons">
-        <div class="longButtonShadowBox">
-          <button type="button" class="btnCM" id="reset">Reset</button>
-          <button type="button" class="btnCM btnCM2" id="pause1">Play / Pause</button>
-          <button type="button" class="btnCM btnCM3" id="randomStart">Random start</button>
-          <button type="button" class="btnCM btnCM4" id="randomColor">Colorful mode</button>
-        </div>
-        <!-- <div class="longButtonShadowBox"></div> -->
-      </div>
+      <script src="./project-1.js"></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
     </div>
-
-
-    <script src="./project-1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"></script>
-</body>
-
+  </body>
 </html>

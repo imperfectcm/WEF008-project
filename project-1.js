@@ -6,6 +6,8 @@ let secondLifeColor = '#707070';
 let lifeColor = '#B0B0B0';
 let emptyColor = '#E0E0E0';
 let strokeColor = '#FFFFFF';
+let flag = false
+
 document.body.style.backgroundColor = strokeColor;
 let h1Elements = document.getElementsByTagName("h1");
 for (var i = 0; i < h1Elements.length; i++) {
@@ -33,7 +35,9 @@ let C17 = document.querySelector(".set3")
 
 let aud = document.querySelector("#blackpinkColorMode").children[1];
 let isPlaying = false
+
 aud.pause();
+
 function playPause() {
     if (isPlaying) {
         aud.pause();
@@ -316,7 +320,7 @@ let nextBoard;
 
 
 function setup() {
-    frameRate(20)
+    frameRate(1)
     randomBirth = false;
     randomColorMode = false;
     /* Set the canvas to be under the element #canvas*/
@@ -365,8 +369,10 @@ function init() {
 
 
 function draw() {
+    console.log("wp")
     background(strokeColor);
-    generate();
+    if (game == true)
+        generate();
 
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
@@ -540,6 +546,7 @@ function mouseReleased() {
     croodX = Math.floor(mouseX / unitLength)
     croodY = Math.floor(mouseY / unitLength)
     console.log(mouseX, mouseY)
+    console.log("mouse Released", croodX, croodY, game)
     if (game == true) {
         loop()
     }
@@ -564,11 +571,15 @@ function windowResized() {
 }
 
 function keyPressed() {
+
+    console.log("GG before", croodX, croodY)
     if (keyCode === DOWN_ARROW) {
 
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
             noLoop()
+            game = false
             croodY++
+            console.log("GG after", croodX, croodY)
             currentBoard[croodX][croodY] = 1
             fill(lifeColor);
             stroke(strokeColor);
@@ -637,6 +648,8 @@ function keyPressed() {
 
         }
     } else if (keyCode === ENTER) {
+
+
         if (game == true) {
             game = false;
             pause2();
