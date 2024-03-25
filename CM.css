@@ -90,13 +90,13 @@ body {
 }
 
 .full-container {
-    height: 300vh !important;
+    /* height: 300vh !important; */
     overflow: hidden;
     background-image: linear-gradient(to right, #434343 0%, black 100%);
 }
 
 h1 {
-    margin-top: 40% !important;
+    margin-top: 42vh !important;
     letter-spacing: 5px;
     margin-bottom: 50px;
 }
@@ -137,6 +137,8 @@ h1 {
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    -webkit-animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 1s both;
+    animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) 1s both;
 }
 
 .info div {
@@ -156,4 +158,8 @@ a:hover {
     color:#fff127  !important; 
     text-decoration:none  !important; 
     cursor:pointer;  
+}
+
+.carousel {
+  margin-bottom: 0;
 }
