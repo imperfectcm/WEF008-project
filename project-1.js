@@ -339,6 +339,8 @@ function setup() {
         nextBoard[i] = [];
     }
 
+    // [[{life:0,round:0},{}...],[],[]]
+
 
     // Now both currentBoard and nextBoard are array of array of undefined values.
     init(); // Set the initial values of the currentBoard and nextBoard
@@ -349,11 +351,11 @@ function init() {
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
             if (randomBirth == false) {
-                currentBoard[i][j] = 0; // one line if
-                nextBoard[i][j] = 0;
+                currentBoard[i][j] = { life: 0, round: 0 }; // one line if
+                nextBoard[i][j] = { life: 0, round: 0 };
             } else {
-                currentBoard[i][j] = random() > 0.8 ? 1 : 0;
-                nextBoard[i][j] = 0;
+                currentBoard[i][j].life = random() > 0.8 ? 1 : 0;
+                nextBoard[i][j] = { life: 0, round: 0 };
             }
             // let someVariables = <condictions> : <when_true> : <when_false>;
             // currentBoard[i][j] = random() > 0.8 ? 1 : 0; // one line if
@@ -371,21 +373,19 @@ function draw() {
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
 
-            if (currentBoard[i][j] == 1 && randomColorMode == false) {
-                fill(lifeColor);
-                if (nextBoard[i][j] == 1) {
-                    if (thirdLife) {
-                        fill(thirdLifeColor);
-                    } else if (secondLife) {
-                        fill(thirdLifeColor);
-                        thirdLife = true
-                    } else {
-                        fill(secondLifeColor);
-                        secondLife = true
-                    }
+            if (currentBoard[i][j].life == 1 && randomColorMode == false) {
+
+                if (currentBoard[i][j].round == 0) {
+                    fill(lifeColor)
+                }
+                else if (currentBoard[i][j].round == 1) {
+                    fill(secondLifeColor);
+                } else if (currentBoard[i][j].round >= 2) {
+                    fill(thirdLifeColor);
                 }
             }
-            else if (currentBoard[i][j] == 1 && randomColorMode == true) {
+
+            else if (currentBoard[i][j].life == 1 && randomColorMode == true) {
                 if (r % 2 == 1) {
                     fill(randomColor);
                 } else if (r % 2 == 0) {
@@ -393,14 +393,14 @@ function draw() {
                 }
             } else {
                 fill(emptyColor);
-                secondLife = false;
-                thirdLife = false;
+
             }
             stroke(strokeColor);
             rect(i * unitLength, j * unitLength, unitLength, unitLength);
         }
     }
 }
+
 
 
 function generate() {
@@ -411,28 +411,35 @@ function generate() {
             let neighbors = 0;
             for (let i of [-1, 0, 1]) {
                 for (let j of [-1, 0, 1]) {
+
                     if (i == 0 && j == 0) {
                         // the cell itself is not its own neighbor
                         continue;
                     }
-                    // The modulo operator is crucial for wrapping on the edge
-                    neighbors += currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
+                    // The modulo operator is crucial for wrapping on the edge 
+                    else if (currentBoard[(x + i + columns) % columns][(y + j + rows) % rows].life != 0)
+                        neighbors++;
                 }
             }
             // Rules of Life
-            if (currentBoard[x][y] == 1 && neighbors < a2) {
+            if (currentBoard[x][y].life == 1 && neighbors < a2) {
                 // Die of Loneliness
-                nextBoard[x][y] = 0;
-            } else if (currentBoard[x][y] == 1 && neighbors > a3) {
+                nextBoard[x][y] = { life: 0, round: 0 };
+            } else if (currentBoard[x][y].life == 1 && neighbors > a3) {
                 // Die of Overpopulation
-                nextBoard[x][y] = 0;
-            } else if (currentBoard[x][y] == 0 && neighbors == b3) {
+                nextBoard[x][y] = { life: 0, round: 0 };
+            } else if (currentBoard[x][y].life == 0 && neighbors == b3) {
                 // New life due to Reproduction
-                nextBoard[x][y] = 1;
+                nextBoard[x][y] = { life: 1, round: 0 }
                 // fill(255);
             } else {
                 // Stasis
                 nextBoard[x][y] = currentBoard[x][y];
+
+                if (nextBoard[x][y].life == 1) {
+                    nextBoard[x][y].round++
+                }
+
             }
         }
     }
@@ -454,9 +461,7 @@ function mouseDragged() {
     if (mouseX > unitLength * columns || mouseX < 0 || mouseY > unitLength * rows || mouseY < 0) {
         return;
     } else if (pattern == 0 || pattern == 6 && x >= 0 && x <= (width / unitLength) && y >= 0 && y <= (height / unitLength)) {
-        console.log(pattern)
-        console.log(mouseX, mouseY, x, y)
-        currentBoard[x][y] = 1;
+        currentBoard[x][y].life = 1;
         fill(lifeColor);
         stroke(strokeColor);
         rect(x * unitLength, y * unitLength, unitLength, unitLength);
@@ -478,7 +483,7 @@ function mouseDragged() {
         for (let i in glider) {
             for (let j in glider[i]) {
                 if (glider[i][j] == "O") {
-                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
+                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows].life = 1
                     fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
@@ -490,7 +495,7 @@ function mouseDragged() {
         for (let i in spaceShip) {
             for (let j in spaceShip[i]) {
                 if (spaceShip[i][j] == "O") {
-                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
+                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows].life = 1
                     fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
@@ -502,7 +507,7 @@ function mouseDragged() {
         for (let i in pulsar) {
             for (let j in pulsar[i]) {
                 if (pulsar[i][j] == "O") {
-                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
+                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows].life = 1
                     fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
@@ -514,7 +519,7 @@ function mouseDragged() {
         for (let i in penta) {
             for (let j in penta[i]) {
                 if (penta[i][j] == "O") {
-                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows] = 1
+                    currentBoard[(x + Number(j) + columns) % columns][(y + Number(i) + rows) % rows].life = 1
                     fill(lifeColor);
                     stroke(strokeColor);
                     rect((x + Number(j) + columns) % columns * unitLength, (y + Number(i) + rows) % rows * unitLength, unitLength, unitLength);
@@ -527,11 +532,6 @@ function mouseDragged() {
 
 
 function mousePressed() {
-
-    // fakeX = Math.floor(mouseX / unitLength)
-    // fakeY = Math.floor(mouseY / unitLength)
-    // croodX = fakeX
-    // croodY = fakeY
     noLoop();
     mouseDragged();
 }
@@ -539,7 +539,6 @@ function mousePressed() {
 function mouseReleased() {
     croodX = Math.floor(mouseX / unitLength)
     croodY = Math.floor(mouseY / unitLength)
-    console.log(mouseX, mouseY)
     if (game == true) {
         loop()
     }
@@ -565,46 +564,49 @@ function windowResized() {
 
 function keyPressed() {
     if (keyCode === DOWN_ARROW) {
-
+        game = false
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
+
             noLoop()
             croodY++
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
         } else if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
             noLoop()
             arrowY++
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
 
         }
     } else if (keyCode === UP_ARROW) {
+        game = false
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
             noLoop()
             croodY--
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
         } else if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height) {
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
 
             arrowY--
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
 
         }
     } else if (keyCode === LEFT_ARROW) {
+        game = false
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
             noLoop()
             croodX--
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
@@ -612,17 +614,18 @@ function keyPressed() {
 
             noLoop()
             arrowX--
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
 
         }
     } else if (keyCode === RIGHT_ARROW) {
+        game = false
         if (croodX >= 0 && croodX <= (width / unitLength) && croodY >= 0 && croodY <= (height / unitLength)) {
             noLoop()
             croodX++
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(croodX * unitLength, croodY * unitLength, unitLength, unitLength);
@@ -630,7 +633,7 @@ function keyPressed() {
 
             noLoop()
             arrowX++
-            currentBoard[croodX][croodY] = 1
+            currentBoard[croodX][croodY].life = 1
             fill(lifeColor);
             stroke(strokeColor);
             rect(arrowX * unitLength, arrowY * unitLength, unitLength, unitLength);
